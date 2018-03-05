@@ -1,0 +1,66 @@
+﻿@model MobileMonitor.Models.ServerBackup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ServerBackup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScheduledTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScheduledTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Frequency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Frequency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BackupType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BackupType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Server.ServerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Server.ServerName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BackupID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
