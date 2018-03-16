@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+@*<script type="text/javascript" src="~/Scripts/Graph.js"></script>*@
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+<script>
+
+    //var repeater;
+
+    function showDetail() {
+
+        var jsdata = '{id: ' + @ViewBag.LinkableId + '}';
+
+        //Ajax for cpu chart
+        $.ajax({
+            type: "POST",
+            url: "/ServerStatus/RetrieveCpuUsage",
+            data: jsdata,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (retValue) {
+
+                google.charts.load('current', { packages: ['corechart', 'line'] });
+                google.charts.setOnLoadCallback(drawBasic);
+
+                function drawBasic() {
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'X');
+                    data.addColumn('number', 'CPU');
+
+                    var rows = new Array();
+                    for (i = 0; i < retValue.length; ++i) {
+                        // i * 5 as the monitor checks every 5 seconds
+                        rows.push([i * 5, retValue[i]]);
+                    }
+
+                    data.addRows(rows);
+
+                    var options = {
+                        hAxis: {
+                            title: 'Time (Seconds)'
+                        },
+                        vAxis: {
+                            title: 'Usage (%)'
+                        }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('CPUchart_div'));
+
+                    chart.draw(data, options);
+                }
+                repeater = setTimeout(showDetail, 5000);
+            },
+            error: function (msg) {
+                alert(msg.responseText);
+            }
+        });
+
+        //Ajax for ram chart
+        $.ajax({
+            type: "POST",
+            url: "/ServerStatus/RetrieveRAMAvailable",
+            data: jsdata,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (retValue) {
+
+                google.charts.load('current', { packages: ['corechart', 'line'] });
+                google.charts.setOnLoadCallback(drawBasic);
+
+                function drawBasic() {
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'X');
+                    data.addColumn('number', 'RAM');
+
+                    var rows = new Array();
+                    for (i = 0; i < retValue.length; ++i) {
+                        // i * 5 as the monitor checks every 5 seconds
+                        rows.push([i * 5, retValue[i]]);
+                    }
+
+                    data.addRows(rows);
+
+                    var options = {
+                        hAxis: {
+                            title: 'Time (Seconds)'
+                        },
+                        vAxis: {
+                            title: 'Available (MB)'
+                        },
+                        colors: ['green']
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('RAMchart_div'));
+
+                    chart.draw(data, options);
+                }
+                repeater = setTimeout(showDetail, 5000);
+            },
+            error: function (msg) {
+                alert(msg.responseText);
+            }
+        });
+    }
+
+    showDetail();
+
+</script>
+
+<div id="CPUchart_div"></div>
+
+<div id="RAMchart_div"></div>

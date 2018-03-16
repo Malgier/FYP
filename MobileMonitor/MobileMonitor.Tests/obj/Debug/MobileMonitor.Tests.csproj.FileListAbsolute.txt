@@ -17,7 +17,6 @@ E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.WebPages.Depl
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.WebPages.dll
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.WebPages.Razor.dll
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.Optimization.dll
-E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\EntityFramework.dll
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\MobileMonitor.pdb
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\MobileMonitor.dll.config
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
@@ -30,7 +29,6 @@ E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.WebPages.xml
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.WebPages.Razor.xml
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.Optimization.xml
-E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\EntityFramework.xml
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\obj\Debug\MobileMonitor.Tests.csprojResolveAssemblyReference.cache
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\obj\Debug\MobileMonitor.Tests.csproj.CoreCompileInputs.cache
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\obj\Debug\MobileMonitor.Tests.dll
@@ -39,3 +37,15 @@ E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\MoreLinq.dll
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.ValueTuple.dll
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\MoreLinq.xml
 E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.ValueTuple.xml
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\DomainModel.dll
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\DAL.dll
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\DomainModel.pdb
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\DAL.pdb
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.Http.dll
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\BLL.dll
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Net.Http.Formatting.dll
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.Http.xml
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\BLL.pdb
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Net.Http.Formatting.xml
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.Http.WebHost.dll
+E:\Work\FYP\MobileMonitor\MobileMonitor.Tests\bin\Debug\System.Web.Http.WebHost.xml

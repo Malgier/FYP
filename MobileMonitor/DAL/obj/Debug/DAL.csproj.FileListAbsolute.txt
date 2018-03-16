@@ -3,3 +3,6 @@ E:\Work\FYP\MobileMonitor\DAL\bin\Debug\DAL.pdb
 E:\Work\FYP\MobileMonitor\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
 E:\Work\FYP\MobileMonitor\DAL\obj\Debug\DAL.dll
 E:\Work\FYP\MobileMonitor\DAL\obj\Debug\DAL.pdb
+E:\Work\FYP\MobileMonitor\DAL\bin\Debug\DomainModel.dll
+E:\Work\FYP\MobileMonitor\DAL\bin\Debug\DomainModel.pdb
+E:\Work\FYP\MobileMonitor\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache

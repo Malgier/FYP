@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DomainModel.Server>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Add Server", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ServerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateAdded)
+        </th>
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateAdded)
+        </td>
+        <td>
+            @Html.ActionLink("Status", "Index", new { controller = "ServerStatus", id = item.ServerID }) | 
+            @Html.ActionLink("Backups", "Index", new { controller = "ServerBackups", serverId = item.ServerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ServerID }) 
+        </td>
+    </tr>
+}
+
+</table>

@@ -6,16 +6,16 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MobileMonitor.Models;
 using System.Web.Services;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using MoreLinq;
 using DAL;
+using DomainModel;
 
 namespace MobileMonitor.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ServerStatusController : Controller
     {
         private StoredProcedureCalls sproc = new StoredProcedureCalls();
@@ -54,6 +54,21 @@ namespace MobileMonitor.Controllers
             }
 
             var json = JsonConvert.SerializeObject(RAMlist);
+            return json;
+        }
+
+        [WebMethod]
+        public string RetrieveNetworkAvailable(int id)
+        {
+            List<float> networkList = new List<float>();
+            List<ServerStatu> statusList = sproc.ReturnStatus(id).TakeLast(60).ToList();
+            foreach (ServerStatu status in statusList)
+            {
+                string network = status.NetworkUsage.Replace("%", string.Empty);
+                networkList.Add(float.Parse(network));
+            }
+
+            var json = JsonConvert.SerializeObject(networkList);
             return json;
         }
     }

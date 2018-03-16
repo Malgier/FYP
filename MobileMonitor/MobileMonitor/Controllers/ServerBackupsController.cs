@@ -1,46 +1,42 @@
-﻿using System;
+﻿using BLL.ViewModels;
+using DAL;
+using DomainModel;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MobileMonitor.Models;
 
 namespace MobileMonitor.Controllers
 {
     [Authorize]
     public class ServerBackupsController : Controller
     {
-        private ServerMonitorEntities db = new ServerMonitorEntities();
+        private StoredProcedureCalls sprocs = new StoredProcedureCalls();
 
         // GET: ServerBackups
-        public ActionResult Index()
+        public ActionResult Index(int serverId)
         {
-            var serverBackups = db.ServerBackups.Include(s => s.Server);
+            ViewBag.LinkableId = serverId;
+            var serverBackups = sprocs.ReturnServerBackups(serverId);
+            List<string> sqlServerName = new List<string>();
+            foreach (ServerBackup backup in serverBackups)
+            {
+                sqlServerName.Add(sprocs.ReturnSQLServer(backup.SQLBackupID).DatabaseName);
+            }
+            ViewBag.DatabaseNames = sqlServerName;
             return View(serverBackups.ToList());
         }
 
-        // GET: ServerBackups/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ServerBackup serverBackup = db.ServerBackups.Find(id);
-            if (serverBackup == null)
-            {
-                return HttpNotFound();
-            }
-            return View(serverBackup);
-        }
-
         // GET: ServerBackups/Create
-        public ActionResult Create()
+        public ActionResult Create(int serverId)
         {
-            ViewBag.Server_ServerID = new SelectList(db.Servers, "ServerID", "ServerName");
+            ServerBackupVM vm = new ServerBackupVM(0, serverId);
+
+            ViewBag.Frequency = vm.frequency;
+            ViewBag.BackupType = vm.type;
+            ViewBag.SQLBackup = vm.SQLServer;
+
             return View();
         }
 
@@ -49,33 +45,35 @@ namespace MobileMonitor.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BackupID,Name,ScheduledTime,Frequency,BackupType,Active,Server_ServerID")] ServerBackup serverBackup)
+        public ActionResult Create(ServerBackup serverBackup)
         {
             if (ModelState.IsValid)
             {
-                db.ServerBackups.Add(serverBackup);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                sprocs.MergeBackup(serverBackup);
+                return RedirectToAction("Index", new { serverId = sprocs.ReturnSQLServer(serverBackup.SQLBackupID).Server_ServerID });
             }
+            //ServerBackupVM vm = new ServerBackupVM(0, serverId);
+            //ViewBag.Frequency = vm.frequency;
+            //ViewBag.BackupType = vm.type;
+            //ViewBag.SQLBackup = vm.SQLServer;
 
-            ViewBag.Server_ServerID = new SelectList(db.Servers, "ServerID", "ServerName", serverBackup.Server_ServerID);
             return View(serverBackup);
         }
 
         // GET: ServerBackups/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int serverId)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServerBackup serverBackup = db.ServerBackups.Find(id);
-            if (serverBackup == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Server_ServerID = new SelectList(db.Servers, "ServerID", "ServerName", serverBackup.Server_ServerID);
-            return View(serverBackup);
+
+            ServerBackupVM vm = new ServerBackupVM((int)id, serverId);
+            ViewBag.Frequency = vm.frequency;
+            ViewBag.BackupType = vm.type;
+            ViewBag.SQLBackup = vm.SQLServer;
+
+            return View(vm.backup);
         }
 
         // POST: ServerBackups/Edit/5
@@ -83,51 +81,46 @@ namespace MobileMonitor.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BackupID,Name,ScheduledTime,Frequency,BackupType,Active,Server_ServerID")] ServerBackup serverBackup)
+        public ActionResult Edit(ServerBackup serverBackup)
         {
+            int serverId = sprocs.ReturnSQLServer(serverBackup.SQLBackupID).Server_ServerID;
             if (ModelState.IsValid)
             {
-                db.Entry(serverBackup).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                sprocs.MergeBackup(serverBackup);
+                return RedirectToAction("Index", new { serverId = serverId });
             }
-            ViewBag.Server_ServerID = new SelectList(db.Servers, "ServerID", "ServerName", serverBackup.Server_ServerID);
+            ServerBackupVM vm = new ServerBackupVM(serverBackup.BackupID, serverId);
+            ViewBag.Frequency = vm.frequency;
+            ViewBag.BackupType = vm.type;
+            ViewBag.SQLBackup = vm.SQLServer;
+
             return View(serverBackup);
         }
 
-        // GET: ServerBackups/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ServerBackup serverBackup = db.ServerBackups.Find(id);
-            if (serverBackup == null)
-            {
-                return HttpNotFound();
-            }
-            return View(serverBackup);
-        }
+        //// GET: ServerBackups/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    ServerBackup serverBackup = db.ServerBackups.Find(id);
+        //    if (serverBackup == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(serverBackup);
+        //}
 
-        // POST: ServerBackups/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ServerBackup serverBackup = db.ServerBackups.Find(id);
-            db.ServerBackups.Remove(serverBackup);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //// POST: ServerBackups/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    ServerBackup serverBackup = db.ServerBackups.Find(id);
+        //    db.ServerBackups.Remove(serverBackup);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
     }
 }

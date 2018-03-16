@@ -1,5 +1,6 @@
-﻿using MobileMonitor.Login;
-using MobileMonitor.Models;
+﻿using DAL;
+using DomainModel;
+using MobileMonitor.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,27 +14,33 @@ namespace MobileMonitor.Controllers
     {
         UserApplication userApp;
         SessionContext context;
-        private ServerMonitorEntities db;
+        StoredProcedureCalls sprocs;
+        PasswordEncryption encryption;
 
         public AccountController()
         {
             userApp = new UserApplication();
             context = new SessionContext();
-            db = new ServerMonitorEntities();
+            sprocs = new StoredProcedureCalls();
+            encryption = new PasswordEncryption();
         }
 
         public ActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(User user)
         {
             var authenticatedUser = userApp.GetByUsernameAndPassword(user);
-            if (authenticatedUser != null)
+            if (encryption.Decrypt(authenticatedUser.Password) == user.Password)
             {
-                context.SetAuthenticationToken(authenticatedUser.UserID.ToString(), false, authenticatedUser);
-                return RedirectToAction("Index", "Home");
+                if (authenticatedUser != null)
+                {
+                    context.SetAuthenticationToken(authenticatedUser.UserID.ToString(), false, authenticatedUser);
+                    return RedirectToAction("Index", "Servers");
+                }
             }
 
             return View();
@@ -50,9 +57,8 @@ namespace MobileMonitor.Controllers
         {
             if (ModelState.IsValid)
             {
-                user.Active = true;
-                db.Users.Add(user);
-                db.SaveChanges();
+                user.Password = encryption.Encrypt(user.Password);
+                sprocs.InsertUser(user);
                 return RedirectToAction("Login");
             }
 
@@ -61,7 +67,7 @@ namespace MobileMonitor.Controllers
 
         public ActionResult Logout()
         {
-            Session["UserID"] = "";
+            Session["UserID"] = null;
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }

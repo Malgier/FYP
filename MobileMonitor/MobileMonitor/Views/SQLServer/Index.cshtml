@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DomainModel.SQLBackupServer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Return to Backup", "Index", new { controller = "ServerBackups", serverId = ViewBag.LinkableId })
+    @Html.ActionLink("Create New", "Create", new { id = ViewBag.LinkableId })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DatabaseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Server_ServerID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatabaseName)
+        </td>
+        <td>
+            @ViewBag.Server
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.SQLBackupID  }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.SQLBackupID })
+        </td>
+    </tr>
+}
+
+</table>

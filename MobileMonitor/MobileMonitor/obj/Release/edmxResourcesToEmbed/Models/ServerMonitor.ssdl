@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ServerMonitorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BackupResult">
+    <Key>
+      <PropertyRef Name="ResultID" />
+    </Key>
+    <Property Name="ResultID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DatePerformed" Type="datetime" Nullable="false" />
+    <Property Name="Result" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Error" Type="varchar" MaxLength="100" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="ServerBackup_BackupID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Server">
+    <Key>
+      <PropertyRef Name="ServerID" />
+    </Key>
+    <Property Name="ServerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServerName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateAdded" Type="datetime" Nullable="false" />
+    <Property Name="ServerUniqueCode" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServerBackup">
+    <Key>
+      <PropertyRef Name="BackupID" />
+    </Key>
+    <Property Name="BackupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="ScheduledTime" Type="time" Precision="1" Nullable="false" />
+    <Property Name="Frequency" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="BackupType" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="Server_ServerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServerStatus">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CPUUsage" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MemoryAvailble" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NetworkUsage" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="Server_ServerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServerWarning">
+    <Key>
+      <PropertyRef Name="WarningID" />
+    </Key>
+    <Property Name="WarningID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WarningCause" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="TimeWarningStart" Type="datetime" Nullable="false" />
+    <Property Name="TimeWarningEnd" Type="datetime" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="Server_ServerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserServer">
+    <Key>
+      <PropertyRef Name="Server_ServerID" />
+      <PropertyRef Name="User_UserID" />
+    </Key>
+    <Property Name="Server_ServerID" Type="int" Nullable="false" />
+    <Property Name="User_UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="BackupResult_ServerBackup">
+    <End Role="ServerBackup" Type="Self.ServerBackup" Multiplicity="1" />
+    <End Role="BackupResult" Type="Self.BackupResult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServerBackup">
+        <PropertyRef Name="BackupID" />
+      </Principal>
+      <Dependent Role="BackupResult">
+        <PropertyRef Name="ServerBackup_BackupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServerBackup_Server">
+    <End Role="Server" Type="Self.Server" Multiplicity="1" />
+    <End Role="ServerBackup" Type="Self.ServerBackup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Server">
+        <PropertyRef Name="ServerID" />
+      </Principal>
+      <Dependent Role="ServerBackup">
+        <PropertyRef Name="Server_ServerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServerStatus_Server">
+    <End Role="Server" Type="Self.Server" Multiplicity="1" />
+    <End Role="ServerStatus" Type="Self.ServerStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Server">
+        <PropertyRef Name="ServerID" />
+      </Principal>
+      <Dependent Role="ServerStatus">
+        <PropertyRef Name="Server_ServerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServerWarning_Server">
+    <End Role="Server" Type="Self.Server" Multiplicity="1" />
+    <End Role="ServerWarning" Type="Self.ServerWarning" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Server">
+        <PropertyRef Name="ServerID" />
+      </Principal>
+      <Dependent Role="ServerWarning">
+        <PropertyRef Name="Server_ServerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Table_7_Server">
+    <End Role="Server" Type="Self.Server" Multiplicity="1" />
+    <End Role="UserServer" Type="Self.UserServer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Server">
+        <PropertyRef Name="ServerID" />
+      </Principal>
+      <Dependent Role="UserServer">
+        <PropertyRef Name="Server_ServerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Table_7_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserServer" Type="Self.UserServer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserServer">
+        <PropertyRef Name="User_UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ServerMonitorModelStoreContainer">
+    <EntitySet Name="BackupResult" EntityType="Self.BackupResult" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Server" EntityType="Self.Server" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServerBackup" EntityType="Self.ServerBackup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServerStatus" EntityType="Self.ServerStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServerWarning" EntityType="Self.ServerWarning" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserServer" EntityType="Self.UserServer" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="BackupResult_ServerBackup" Association="Self.BackupResult_ServerBackup">
+      <End Role="ServerBackup" EntitySet="ServerBackup" />
+      <End Role="BackupResult" EntitySet="BackupResult" />
+    </AssociationSet>
+    <AssociationSet Name="ServerBackup_Server" Association="Self.ServerBackup_Server">
+      <End Role="Server" EntitySet="Server" />
+      <End Role="ServerBackup" EntitySet="ServerBackup" />
+    </AssociationSet>
+    <AssociationSet Name="ServerStatus_Server" Association="Self.ServerStatus_Server">
+      <End Role="Server" EntitySet="Server" />
+      <End Role="ServerStatus" EntitySet="ServerStatus" />
+    </AssociationSet>
+    <AssociationSet Name="ServerWarning_Server" Association="Self.ServerWarning_Server">
+      <End Role="Server" EntitySet="Server" />
+      <End Role="ServerWarning" EntitySet="ServerWarning" />
+    </AssociationSet>
+    <AssociationSet Name="Table_7_Server" Association="Self.Table_7_Server">
+      <End Role="Server" EntitySet="Server" />
+      <End Role="UserServer" EntitySet="UserServer" />
+    </AssociationSet>
+    <AssociationSet Name="Table_7_User" Association="Self.Table_7_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserServer" EntitySet="UserServer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

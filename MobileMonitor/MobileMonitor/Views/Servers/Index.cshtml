@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MobileMonitor.Models.Server>
+﻿@model IEnumerable<DomainModel.Server>
 
 @{
     ViewBag.Title = "Index";
@@ -17,7 +17,8 @@
         <th>
             @Html.DisplayNameFor(model => model.DateAdded)
         </th>
-        <th>Action</th>
+        <th>Server Action</th>
+        <th>Navigate</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -29,8 +30,12 @@
             @Html.DisplayFor(modelItem => item.DateAdded)
         </td>
         <td>
+            @Html.ActionLink("Update Warning Options", "Edit", new { id = item.ServerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ServerID })
+        </td>
+        <td>
             @Html.ActionLink("Status", "Index", new { controller = "ServerStatus", id = item.ServerID }) | 
-            @Html.ActionLink("Delete", "Delete", new { id = item.ServerID }) 
+            @Html.ActionLink("Backups", "Index", new { controller = "ServerBackups", serverId = item.ServerID }) 
         </td>
     </tr>
 }

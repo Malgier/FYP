@@ -1,0 +1,6 @@
+E:\Work\FYP\MobileMonitor\DomainModel\bin\Release\DomainModel.dll
+E:\Work\FYP\MobileMonitor\DomainModel\bin\Release\DomainModel.pdb
+E:\Work\FYP\MobileMonitor\DomainModel\obj\Release\DomainModel.csprojResolveAssemblyReference.cache
+E:\Work\FYP\MobileMonitor\DomainModel\obj\Release\DomainModel.csproj.CoreCompileInputs.cache
+E:\Work\FYP\MobileMonitor\DomainModel\obj\Release\DomainModel.dll
+E:\Work\FYP\MobileMonitor\DomainModel\obj\Release\DomainModel.pdb

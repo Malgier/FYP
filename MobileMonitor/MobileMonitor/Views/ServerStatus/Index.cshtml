@@ -108,6 +108,53 @@
                 alert(msg.responseText);
             }
         });
+
+        //Ajax for cpu chart
+        $.ajax({
+            type: "POST",
+            url: "/ServerStatus/RetrieveNetworkUsage",
+            data: jsdata,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (retValue) {
+
+                google.charts.load('current', { packages: ['corechart', 'line'] });
+                google.charts.setOnLoadCallback(drawBasic);
+
+                function drawBasic() {
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'X');
+                    data.addColumn('number', 'Network');
+
+                    var rows = new Array();
+                    for (i = 0; i < retValue.length; ++i) {
+                        // i * 5 as the monitor checks every 5 seconds
+                        rows.push([i * 5, retValue[i]]);
+                    }
+
+                    data.addRows(rows);
+
+                    var options = {
+                        hAxis: {
+                            title: 'Time (Seconds)'
+                        },
+                        vAxis: {
+                            title: 'Usage (%)'
+                        },
+                        colors: ['red']
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('Networkchart_div'));
+
+                    chart.draw(data, options);
+                }
+                repeater = setTimeout(showDetail, 5000);
+            },
+            error: function (msg) {
+                alert(msg.responseText);
+            }
+        });
     }
 
     showDetail();
@@ -117,3 +164,5 @@
 <div id="CPUchart_div"></div>
 
 <div id="RAMchart_div"></div>
+
+<div id="Networkchart_div"></div>

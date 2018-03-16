@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MobileMonitor.Models.ServerBackup>
+﻿@model IEnumerable<DomainModel.ServerBackup>
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +7,9 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Backup", "Create", new { serverId = ViewBag.LinkableId })
+    @Html.ActionLink("View SQL Servers", "Index", "SQLServer", new { id = ViewBag.LinkableId }, null)
+
 </p>
 <table class="table">
     <tr>
@@ -24,15 +26,12 @@
             @Html.DisplayNameFor(model => model.BackupType)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Active)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Server.ServerName)
+            @Html.DisplayNameFor(model => model.SQLServer.DatabaseName)
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
+    @{var i = 0;}
+    @foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -47,15 +46,13 @@
             @Html.DisplayFor(modelItem => item.BackupType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Active)
+            @ViewBag.DatabaseNames[i]
+            @{i++;}
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Server.ServerName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BackupID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BackupID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BackupID })
+            @Html.ActionLink("Results", "Index", new { controller = "ServerResult", backupID = item.BackupID }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.BackupID, serverId= ViewBag.LinkableId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BackupID }) 
         </td>
     </tr>
 }

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ServerMonitorModelStoreContainer" CdmEntityContainer="ServerMonitorEntities">
+    <EntitySetMapping Name="BackupResults">
+      <EntityTypeMapping TypeName="ServerMonitorModel.BackupResult">
+        <MappingFragment StoreEntitySet="BackupResult">
+          <ScalarProperty Name="ResultID" ColumnName="ResultID" />
+          <ScalarProperty Name="DatePerformed" ColumnName="DatePerformed" />
+          <ScalarProperty Name="Result" ColumnName="Result" />
+          <ScalarProperty Name="Error" ColumnName="Error" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="ServerBackup_BackupID" ColumnName="ServerBackup_BackupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Servers">
+      <EntityTypeMapping TypeName="ServerMonitorModel.Server">
+        <MappingFragment StoreEntitySet="Server">
+          <ScalarProperty Name="ServerID" ColumnName="ServerID" />
+          <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="ServerUniqueCode" ColumnName="ServerUniqueCode" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServerBackups">
+      <EntityTypeMapping TypeName="ServerMonitorModel.ServerBackup">
+        <MappingFragment StoreEntitySet="ServerBackup">
+          <ScalarProperty Name="BackupID" ColumnName="BackupID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ScheduledTime" ColumnName="ScheduledTime" />
+          <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+          <ScalarProperty Name="BackupType" ColumnName="BackupType" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Server_ServerID" ColumnName="Server_ServerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServerStatus">
+      <EntityTypeMapping TypeName="ServerMonitorModel.ServerStatu">
+        <MappingFragment StoreEntitySet="ServerStatus">
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="CPUUsage" ColumnName="CPUUsage" />
+          <ScalarProperty Name="MemoryAvailble" ColumnName="MemoryAvailble" />
+          <ScalarProperty Name="NetworkUsage" ColumnName="NetworkUsage" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Server_ServerID" ColumnName="Server_ServerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServerWarnings">
+      <EntityTypeMapping TypeName="ServerMonitorModel.ServerWarning">
+        <MappingFragment StoreEntitySet="ServerWarning">
+          <ScalarProperty Name="WarningID" ColumnName="WarningID" />
+          <ScalarProperty Name="WarningCause" ColumnName="WarningCause" />
+          <ScalarProperty Name="TimeWarningStart" ColumnName="TimeWarningStart" />
+          <ScalarProperty Name="TimeWarningEnd" ColumnName="TimeWarningEnd" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Server_ServerID" ColumnName="Server_ServerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="ServerMonitorModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserServer" TypeName="ServerMonitorModel.UserServer" StoreEntitySet="UserServer">
+      <EndProperty Name="Server">
+        <ScalarProperty Name="ServerID" ColumnName="Server_ServerID" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="UserID" ColumnName="User_UserID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,130 @@
+﻿@model DomainModel.ServerBackup
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        SetExpiration();
+        SetScheduledTime();
+    });
+
+    function Submit() {
+        var date = document.getElementById("date").value;
+        var time = document.getElementById("time").value;
+        var dateFormat = new Date(date + ' ' + time);
+        document.getElementById("ScheduledTime").value = dateFormat.toISOString();
+
+        Model.BackupType = document.getElementById("BackupType").value;
+        Model.Frequency = document.getElementById("Frequency").value;
+    }
+
+    function SetExpiration() {
+        var day = ("0" + @Model.ExpirationDate.Day).slice(-2);
+        var month = ("0" + @Model.ExpirationDate.Month).slice(-2);
+        var year = @Model.ExpirationDate.Year;
+        var expirDate = year + "-" + month + "-" + day;
+        document.getElementById("ExpirationDate").value = expirDate;
+    }
+
+    function SetScheduledTime() {
+        var day = ("0" + @Model.ScheduledTime.Day).slice(-2);
+        var month = ("0" + @Model.ScheduledTime.Month).slice(-2);
+        var year = @Model.ScheduledTime.Year;
+        var date = year + "-" + month + "-" + day;
+        document.getElementById("date").value = date;
+
+        document.getElementById("time").value = "@Model.ScheduledTime.ToShortTimeString()";
+    }
+</script>
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ServerBackup</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.BackupID)
+        @Html.HiddenFor(model => model.ScheduledTime)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ScheduledTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input id="date" type="date" class="form-control" />
+                @Html.ValidationMessageFor(model => model.ScheduledTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ScheduledTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input id="time" type="time" class="form-control" />
+                @Html.ValidationMessageFor(model => model.ScheduledTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExpirationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ExpirationDate, htmlAttributes: new { @type = "date", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ExpirationDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Frequency, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Frequency, new SelectList(ViewBag.Frequency, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Frequency, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BackupType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BackupType, new SelectList(ViewBag.BackupType, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BackupType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Compression, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Compression, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Compression, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SQLBackupID, "SQL Backup", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SQLBackupID, new SelectList(ViewBag.SQLBackup, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SQLBackupID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" onclick="Submit();" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

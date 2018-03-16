@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DomainModel.ServerBackup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New Backup", "Create", new { serverId = ViewBag.LinkableId })
+    @Html.ActionLink("View SQL Servers", "Index", "SQLServer", new { id = ViewBag.LinkableId }, null)
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScheduledTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Frequency)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BackupType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SQLServer.DatabaseName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScheduledTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Frequency)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BackupType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SQLServer.DatabaseName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BackupID, serverId= ViewBag.LinkableId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BackupID })
+        </td>
+    </tr>
+}
+
+</table>

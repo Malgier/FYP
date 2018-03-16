@@ -1,0 +1,48 @@
+﻿@model DomainModel.BackupResult
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BackupResult</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePerformed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePerformed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Result)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Result)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Error)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Error)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ServerBackup_BackupID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServerBackup_BackupID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

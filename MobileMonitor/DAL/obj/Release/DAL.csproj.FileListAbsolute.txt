@@ -1,0 +1,8 @@
+E:\Work\FYP\MobileMonitor\DAL\bin\Release\DAL.dll
+E:\Work\FYP\MobileMonitor\DAL\bin\Release\DAL.pdb
+E:\Work\FYP\MobileMonitor\DAL\bin\Release\DomainModel.dll
+E:\Work\FYP\MobileMonitor\DAL\bin\Release\DomainModel.pdb
+E:\Work\FYP\MobileMonitor\DAL\obj\Release\DAL.csprojResolveAssemblyReference.cache
+E:\Work\FYP\MobileMonitor\DAL\obj\Release\DAL.csproj.CoreCompileInputs.cache
+E:\Work\FYP\MobileMonitor\DAL\obj\Release\DAL.dll
+E:\Work\FYP\MobileMonitor\DAL\obj\Release\DAL.pdb

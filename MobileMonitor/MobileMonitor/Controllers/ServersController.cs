@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using DAL;
-using MobileMonitor.Models;
 using MobileMonitor.Login;
+using DomainModel;
+using System.Net;
 
 namespace MobileMonitor.Controllers
 {
     [Authorize]
     public class ServersController : Controller
     {
-        private ServerMonitorEntities db = new ServerMonitorEntities();
         private SessionContext userContext = new SessionContext();
         private StoredProcedureCalls sproc = new StoredProcedureCalls();
 
@@ -55,39 +49,55 @@ namespace MobileMonitor.Controllers
             return View(server);
         }
 
-        // GET: Servers/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: ServerBackups/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Server server = db.Servers.Find(id);
-            if (server == null)
+            return View(sproc.ReturnServer((int)id));
+        }
+
+        // POST: ServerBackups/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Server server)
+        {
+            if (ModelState.IsValid)
             {
-                return HttpNotFound();
+                sproc.InsertServer(server);
+                return RedirectToAction("Index");
             }
             return View(server);
         }
 
-        // POST: Servers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Server server = db.Servers.Find(id);
-            db.Servers.Remove(server);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// GET: Servers/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Server server = db.Servers.Find(id);
+        //    if (server == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(server);
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //// POST: Servers/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Server server = db.Servers.Find(id);
+        //    db.Servers.Remove(server);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
     }
 }

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DomainModel.BackupResult>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DatePerformed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Result)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Error)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServerBackup_BackupID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatePerformed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Result)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Error)
+        </td>
+        <td>
+            @ViewBag.BackupName
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id = item.ResultID })
+        </td>
+    </tr>
+}
+
+</table>

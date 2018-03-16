@@ -1,0 +1,6 @@
+E:\Work\FYP\MobileMonitor\PushService\bin\PushService.dll.config
+E:\Work\FYP\MobileMonitor\PushService\bin\PushService.dll
+E:\Work\FYP\MobileMonitor\PushService\bin\PushService.pdb
+E:\Work\FYP\MobileMonitor\PushService\obj\Debug\PushService.csproj.CoreCompileInputs.cache
+E:\Work\FYP\MobileMonitor\PushService\obj\Debug\PushService.dll
+E:\Work\FYP\MobileMonitor\PushService\obj\Debug\PushService.pdb

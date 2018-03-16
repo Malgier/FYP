@@ -1,6 +1,5 @@
 ﻿using DAL;
-using MobileMonitor.Models;
-using System.Linq;
+using DomainModel;
 
 namespace MobileMonitor.Login
 {
@@ -10,7 +9,7 @@ namespace MobileMonitor.Login
 
         public User GetByUsernameAndPassword(User user)
         {
-            return sproc.ReturnUser(user.UserName, user.Password);
+            return sproc.ReturnUser(user.UserName);
         }
     }
 }
