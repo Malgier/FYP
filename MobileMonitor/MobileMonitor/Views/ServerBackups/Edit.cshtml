@@ -9,6 +9,7 @@
     $(document).ready(function () {
         SetExpiration();
         SetScheduledTime();
+        Setddl();
     });
 
     function Submit() {
@@ -37,6 +38,23 @@
         document.getElementById("date").value = date;
 
         document.getElementById("time").value = "@Model.ScheduledTime.ToShortTimeString()";
+    }
+
+    function Setddl()
+    {
+        var freqddl = document.getElementById("Frequency");
+        var selected = "@Model.Frequency";
+        for (var i = 0; i < @ViewBag.Frequency.Count; i++) {
+            if (freqddl.options[i].value === selected)
+                document.getElementById("Frequency").selectedIndex = i;
+        }
+
+        var typeddl = document.getElementById("BackupType");
+        var typeSelected = "@Model.BackupType";
+        for (var i = 0; i < @ViewBag.BackupType.Count; i++) {
+            if (typeddl.options[i].value === typeSelected)
+                document.getElementById("BackupType").selectedIndex = i;
+        }
     }
 </script>
 

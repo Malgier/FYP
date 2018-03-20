@@ -97,30 +97,28 @@ namespace MobileMonitor.Controllers
             return View(serverBackup);
         }
 
-        //// GET: ServerBackups/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    ServerBackup serverBackup = db.ServerBackups.Find(id);
-        //    if (serverBackup == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(serverBackup);
-        //}
+        // GET: ServerBackups/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServerBackup serverBackup = sprocs.ReturnServerBackup((int)id);
+            if (serverBackup == null)
+            {
+                return HttpNotFound();
+            }
+            return View(serverBackup);
+        }
 
-        //// POST: ServerBackups/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    ServerBackup serverBackup = db.ServerBackups.Find(id);
-        //    db.ServerBackups.Remove(serverBackup);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        // POST: ServerBackups/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(ServerBackup serverBackup)
+        {
+            sprocs.DeleteServerBackup(serverBackup.BackupID);
+            return RedirectToAction("Index", new { serverId = sprocs.ReturnSQLServer(serverBackup.SQLBackupID).Server_ServerID });
+        }
     }
 }

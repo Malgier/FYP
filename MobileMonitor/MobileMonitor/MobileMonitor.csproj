@@ -279,6 +279,9 @@
     <Content Include="Views\ServerResult\Index.cshtml" />
     <Content Include="Views\ServerResult\Details.cshtml" />
     <Content Include="Views\Servers\Edit.cshtml" />
+    <Content Include="Views\ServerResult\Delete.cshtml" />
+    <Content Include="Views\SQLServer\Delete.cshtml" />
+    <Content Include="Views\ServerStatus\StatusHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,6 +9,7 @@ namespace DomainModel
         public string CPUUsage { get; set; }
         public string MemoryAvailble { get; set; }
         public string NetworkUsage { get; set; }
+        public DateTime DateOfStatus { get; set; }
         public bool Active { get; set; }
         public int Server_ServerID { get; set; }
     

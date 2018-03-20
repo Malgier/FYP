@@ -30,8 +30,8 @@
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
+    @{var i = 0;}
+    @foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -46,11 +46,13 @@
             @Html.DisplayFor(modelItem => item.BackupType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SQLServer.DatabaseName)
+            @ViewBag.DatabaseNames[i]
+            @{i++;}
         </td>
         <td>
+            @Html.ActionLink("Results", "Index", new { controller = "ServerResult", backupID = item.BackupID }) |
             @Html.ActionLink("Edit", "Edit", new { id=item.BackupID, serverId= ViewBag.LinkableId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BackupID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.BackupID }) 
         </td>
     </tr>
 }

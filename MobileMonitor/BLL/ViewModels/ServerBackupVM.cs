@@ -40,45 +40,45 @@ namespace BLL.ViewModels
                 SQLServer.Add(new SelectListItem() { Text = item.DatabaseName, Value = item.SQLBackupID.ToString(), Selected = selectedSQL });
                 selectedSQL = false;
             }
-            if (id != 0)
-            {
-                if (backup.Frequency.Equals("Daily"))
-                {
-                    frequency.Add(new SelectListItem() { Text = "----Select Frequency----", Value = "----Select Frequency----" });
-                    frequency.Add(new SelectListItem() { Text = "Daily", Value = "Daily", Selected = true });
-                    frequency.Add(new SelectListItem() { Text = "Weekly", Value = "Weekly" });
-                    frequency.Add(new SelectListItem() { Text = "Monthly", Value = "Monthly" });
-                }
-                else if (backup.Frequency.Equals("Weekly"))
-                {
-                    frequency.Add(new SelectListItem() { Text = "----Select Frequency----", Value = "----Select Frequency----" });
-                    frequency.Add(new SelectListItem() { Text = "Daily", Value = "Daily" });
-                    frequency.Add(new SelectListItem() { Text = "Weekly", Value = "Weekly", Selected = true });
-                    frequency.Add(new SelectListItem() { Text = "Monthly", Value = "Monthly" });
-                }
-                else if (backup.Frequency.Equals("Monthly"))
-                {
-                    frequency.Add(new SelectListItem() { Text = "----Select Frequency----", Value = "----Select Frequency----" });
-                    frequency.Add(new SelectListItem() { Text = "Daily", Value = "Daily" });
-                    frequency.Add(new SelectListItem() { Text = "Weekly", Value = "Weekly" });
-                    frequency.Add(new SelectListItem() { Text = "Monthly", Value = "Monthly", Selected = true });
-                }
+            //if (id != 0)
+            //{
+            //    if (backup.Frequency.Equals("Daily"))
+            //    {
+            //        frequency.Add(new SelectListItem() { Text = "----Select Frequency----", Value = "----Select Frequency----" });
+            //        frequency.Add(new SelectListItem() { Text = "Daily", Value = "Daily", Selected = true });
+            //        frequency.Add(new SelectListItem() { Text = "Weekly", Value = "Weekly" });
+            //        frequency.Add(new SelectListItem() { Text = "Monthly", Value = "Monthly" });
+            //    }
+            //    else if (backup.Frequency.Equals("Weekly"))
+            //    {
+            //        frequency.Add(new SelectListItem() { Text = "----Select Frequency----", Value = "----Select Frequency----" });
+            //        frequency.Add(new SelectListItem() { Text = "Daily", Value = "Daily" });
+            //        frequency.Add(new SelectListItem() { Text = "Weekly", Value = "Weekly", Selected = true });
+            //        frequency.Add(new SelectListItem() { Text = "Monthly", Value = "Monthly" });
+            //    }
+            //    else if (backup.Frequency.Equals("Monthly"))
+            //    {
+            //        frequency.Add(new SelectListItem() { Text = "----Select Frequency----", Value = "----Select Frequency----" });
+            //        frequency.Add(new SelectListItem() { Text = "Daily", Value = "Daily" });
+            //        frequency.Add(new SelectListItem() { Text = "Weekly", Value = "Weekly" });
+            //        frequency.Add(new SelectListItem() { Text = "Monthly", Value = "Monthly", Selected = true });
+            //    }
 
-                if (backup.BackupType.Equals("Full Backup"))
-                {
-                    type.Add(new SelectListItem() { Text = "----Select Backup Type----", Value = "----Select Backup Type----" });
-                    type.Add(new SelectListItem() { Text = "Full Backup", Value = "Full Backup", Selected = true });
-                    type.Add(new SelectListItem() { Text = "Incremental Backup", Value = "Incremental Backup" });
-                }
-                else if (backup.BackupType.Equals("Full Backup"))
-                {
-                    type.Add(new SelectListItem() { Text = "----Select Backup Type----", Value = "----Select Backup Type----" });
-                    type.Add(new SelectListItem() { Text = "Full Backup", Value = "Full Backup" });
-                    type.Add(new SelectListItem() { Text = "Incremental Backup", Value = "Incremental Backup", Selected = true });
-                }
-            }
-            else
-            {
+            //    if (backup.BackupType.Equals("Full Backup"))
+            //    {
+            //        type.Add(new SelectListItem() { Text = "----Select Backup Type----", Value = "----Select Backup Type----" });
+            //        type.Add(new SelectListItem() { Text = "Full Backup", Value = "Full Backup", Selected = true });
+            //        type.Add(new SelectListItem() { Text = "Incremental Backup", Value = "Incremental Backup" });
+            //    }
+            //    else if (backup.BackupType.Equals("Full Backup"))
+            //    {
+            //        type.Add(new SelectListItem() { Text = "----Select Backup Type----", Value = "----Select Backup Type----" });
+            //        type.Add(new SelectListItem() { Text = "Full Backup", Value = "Full Backup" });
+            //        type.Add(new SelectListItem() { Text = "Incremental Backup", Value = "Incremental Backup", Selected = true });
+            //    }
+            //}
+            //else
+            //{
                 frequency.Add(new SelectListItem() { Text = "----Select Frequency----", Value = "----Select Frequency----" });
                 frequency.Add(new SelectListItem() { Text = "Daily", Value = "Daily" });
                 frequency.Add(new SelectListItem() { Text = "Weekly", Value = "Weekly" });
@@ -87,7 +87,7 @@ namespace BLL.ViewModels
                 type.Add(new SelectListItem() { Text = "----Select Backup Type----", Value = "----Select Backup Type----" });
                 type.Add(new SelectListItem() { Text = "Full Backup", Value = "Full Backup" });
                 type.Add(new SelectListItem() { Text = "Incremental Backup", Value = "Incremental Backup" });
-            }
+            //}
         }
     }
 }

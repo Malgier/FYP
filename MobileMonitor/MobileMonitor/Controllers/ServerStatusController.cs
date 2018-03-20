@@ -27,48 +27,39 @@ namespace MobileMonitor.Controllers
             return View(id);
         }
 
-        [WebMethod]
-        public string RetrieveCpuUsage(int id)
+        public ActionResult StatusHistory(int id)
         {
-            List<float> cpuList = new List<float>();
-            List<ServerStatu> statusList = sproc.ReturnStatus(id).TakeLast(60).ToList();
+            ViewBag.LinkableId = id;
+            return View();
+        }
+
+        [WebMethod]
+        public string RetrieveStatus(int id)
+        {
+            List<ServerStatu> statusList = sproc.ReturnStatus(id).Where(x => x.DateOfStatus.Date == DateTime.Now.Date).TakeLast(60).ToList();
             foreach (ServerStatu status in statusList)
             {
-                string cpu = status.CPUUsage.Replace("%", string.Empty);
-                cpuList.Add(float.Parse(cpu));
+                status.CPUUsage = status.CPUUsage.Replace("%", string.Empty);
+                status.MemoryAvailble = status.MemoryAvailble.Replace("MB Available", string.Empty);
+                status.NetworkUsage = status.NetworkUsage.Replace("%", string.Empty);
             }
 
-            var json = JsonConvert.SerializeObject(cpuList);
+            var json = JsonConvert.SerializeObject(statusList);
             return json;
         }
 
         [WebMethod]
-        public string RetrieveRAMAvailable(int id)
+        public string RetrievePreivousDayStatus(int id)
         {
-            List<float> RAMlist = new List<float>();
-            List<ServerStatu> statusList = sproc.ReturnStatus(id).TakeLast(60).ToList();
+            List<ServerStatu> statusList = sproc.ReturnStatus(id).Where(x => x.DateOfStatus.Date == DateTime.Now.Date.AddDays(-1)).ToList();
             foreach (ServerStatu status in statusList)
             {
-                string ram = status.MemoryAvailble.Replace("MB Available", string.Empty);
-                RAMlist.Add(float.Parse(ram));
+                status.CPUUsage = status.CPUUsage.Replace("%", string.Empty);
+                status.MemoryAvailble = status.MemoryAvailble.Replace("MB Available", string.Empty);
+                status.NetworkUsage = status.NetworkUsage.Replace("%", string.Empty);
             }
 
-            var json = JsonConvert.SerializeObject(RAMlist);
-            return json;
-        }
-
-        [WebMethod]
-        public string RetrieveNetworkAvailable(int id)
-        {
-            List<float> networkList = new List<float>();
-            List<ServerStatu> statusList = sproc.ReturnStatus(id).TakeLast(60).ToList();
-            foreach (ServerStatu status in statusList)
-            {
-                string network = status.NetworkUsage.Replace("%", string.Empty);
-                networkList.Add(float.Parse(network));
-            }
-
-            var json = JsonConvert.SerializeObject(networkList);
+            var json = JsonConvert.SerializeObject(statusList);
             return json;
         }
     }

@@ -3,6 +3,7 @@ using DomainModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -28,26 +29,28 @@ namespace MobileMonitor.Controllers
             }
         }
 
-        // GET: ServerResult/Delete/5
-        public ActionResult Delete(int id)
+        // GET: ServerResults/Delete/5
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BackupResult result = sprocs.ReturnBackupResult(0, (int)id).SingleOrDefault();
+            if (result == null)
+            {
+                return HttpNotFound();
+            }
+            return View(result);
         }
 
-        // POST: ServerResult/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: ServerResults/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(BackupResult result)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            sprocs.DeleteBackupResult(result.ResultID);
+            return RedirectToAction("Index", new { backupID = result.ServerBackup_BackupID });
         }
     }
 }

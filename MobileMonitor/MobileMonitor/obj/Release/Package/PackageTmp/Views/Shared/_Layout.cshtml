@@ -18,12 +18,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Mobile Monitor", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Mobile Monitor", "Index", "Server", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("MyServers", "Index", "Servers")</li>
-                    <li>@Html.ActionLink("MyBackups", "Index", "ServerBackups")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (Session["UserID"] == null)

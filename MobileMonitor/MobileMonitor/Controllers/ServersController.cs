@@ -74,30 +74,28 @@ namespace MobileMonitor.Controllers
             return View(server);
         }
 
-        //// GET: Servers/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Server server = db.Servers.Find(id);
-        //    if (server == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(server);
-        //}
+        // GET: Servers/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Server server = sproc.ReturnServer((int)id);
+            if (server == null)
+            {
+                return HttpNotFound();
+            }
+            return View(server);
+        }
 
-        //// POST: Servers/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Server server = db.Servers.Find(id);
-        //    db.Servers.Remove(server);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        // POST: Servers/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(Server server)
+        {
+            sproc.DeleteServer(server.ServerID);
+            return RedirectToAction("Index");
+        }
     }
 }

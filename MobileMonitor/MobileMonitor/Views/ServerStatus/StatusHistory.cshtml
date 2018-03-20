@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "StatusHistory";
+}
+
+<script>
+
+    //var repeater;
+
+    function showDetail() {
+
+        var jsdata = '{id: ' + @ViewBag.LinkableId + '}';
+
+        //Ajax for cpu chart
+        $.ajax({
+            type: "POST",
+            url: "/ServerStatus/RetrievePreivousDayStatus",
+            data: jsdata,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (retValue) {
+
+                google.charts.load('current', { packages: ['corechart', 'line'] });
+                google.charts.setOnLoadCallback(drawBasic);
+
+                function drawBasic() {
+
+                    //CPU Draw
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('timeofday', 'Time of Day');
+                    data.addColumn('number', 'CPU');
+
+                    var rows = new Array();
+                    for (i = 0; i < retValue.length; ++i) {
+                        var date = new Date(retValue[i].DateOfStatus);
+                        var hours = date.getHours();
+                        var minutes = date.getMinutes();
+                        var seconds = date.getSeconds();
+                        rows.push([[hours, minutes, seconds], JSON.parse(retValue[i].CPUUsage)]);
+                    }
+
+                    data.addRows(rows);
+
+                    var options = {
+                        hAxis: {
+                            title: 'Time'
+                        },
+                        vAxis: {
+                            title: 'Usage (%)'
+                        },
+                        explorer: {
+                            axis: 'horizontal'
+                        }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('CPUchart_div'));
+
+                    chart.draw(data, options);
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('timeofday', 'Time of Day');
+                    data.addColumn('number', 'RAM');
+
+                    var rows = new Array();
+                    for (i = 0; i < retValue.length; ++i) {
+                        var date = new Date(retValue[i].DateOfStatus);
+                        var hours = date.getHours();
+                        var minutes = date.getMinutes();
+                        var seconds = date.getSeconds();
+                        rows.push([[hours, minutes, seconds], JSON.parse(retValue[i].MemoryAvailble)]);
+                    }
+
+                    data.addRows(rows);
+
+                    var options = {
+                        hAxis: {
+                            title: 'Time'
+                        },
+                        vAxis: {
+                            title: 'Available (MB)'
+                        },
+                        colors: ['green'],
+                        explorer: {
+                            axis: 'horizontal'
+                        }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('RAMchart_div'));
+
+                    chart.draw(data, options);
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('timeofday', 'Time of Day');
+                    data.addColumn('number', 'Network');
+
+                    var rows = new Array();
+                    for (i = 0; i < retValue.length; ++i) {
+                        var date = new Date(retValue[i].DateOfStatus);
+                        var hours = date.getHours();
+                        var minutes = date.getMinutes();
+                        var seconds = date.getSeconds();
+                        rows.push([[hours, minutes, seconds], JSON.parse(retValue[i].NetworkUsage)]);
+                    }
+
+                    data.addRows(rows);
+
+                    var options = {
+                        hAxis: {
+                            title: 'Time'
+                        },
+                        vAxis: {
+                            title: 'Usage (%)'
+                        },
+                        colors: ['red'],
+                        explorer: {
+                            axis: 'horizontal'
+                        }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('Networkchart_div'));
+
+                    chart.draw(data, options);
+                }
+            },
+            error: function (msg) {
+                alert(msg.responseText);
+            }
+        });
+    }
+
+    showDetail();
+
+</script>
+
+<h2>StatusHistory</h2>
+
+<div id="CPUchart_div"></div>
+
+<div id="RAMchart_div"></div>
+
+<div id="Networkchart_div"></div>

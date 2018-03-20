@@ -157,26 +157,17 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SystemTrayApp.exe" size="162744">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SystemTrayApp.exe" size="97720">
       <assemblyIdentity name="SystemTrayApp" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>q5Dx8BtmKV8kfpXNE+IWz0ih3zv/bXinH4FMLNSj684=</dsig:DigestValue>
+        <dsig:DigestValue>/d+vmRkjz5ZoOOERrUh/zL1O86dlxdsmKOt+CGsyO/E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Images\About.png" size="2600">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>7TmRTE6CymROKcItfuthaAaIUBE9wAS2zVU2ByAbamk=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="Images\Exit.png" size="2674">
     <hash>
       <dsig:Transforms>

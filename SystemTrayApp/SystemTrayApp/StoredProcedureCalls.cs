@@ -112,7 +112,7 @@ namespace SystemTrayApp
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("InsertBackupResult", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            SqlParameter datePerformed = new SqlParameter("@DatePerformed", SqlDbType.Date);
+            SqlParameter datePerformed = new SqlParameter("@DatePerformed", SqlDbType.DateTime);
             SqlParameter backupResult = new SqlParameter("@Result", SqlDbType.VarChar, 50);
             SqlParameter backupError = new SqlParameter("@Error", SqlDbType.VarChar, 100);
             SqlParameter id = new SqlParameter("@BackupID", SqlDbType.Int);

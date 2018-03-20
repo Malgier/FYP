@@ -35,18 +35,12 @@
             @Html.DisplayFor(model => model.ServerUniqueCode)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.ServerID)
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |

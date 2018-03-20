@@ -44,25 +44,20 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Active)
+            @Html.DisplayNameFor(model => model.ExpirationDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Server.ServerName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Server.ServerName)
+            @Html.DisplayFor(model => model.ExpirationDate)
         </dd>
 
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.BackupID)
+        @Html.HiddenFor(model => model.SQLBackupID)
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |

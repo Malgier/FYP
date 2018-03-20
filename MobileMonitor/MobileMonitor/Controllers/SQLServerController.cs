@@ -80,5 +80,29 @@ namespace MobileMonitor.Controllers
 
             return View(sqlBackup);
         }
+
+        // GET: SQLServers/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SQLBackupServer server = sprocs.ReturnSQLServer((int)id);
+            if (server == null)
+            {
+                return HttpNotFound();
+            }
+            return View(server);
+        }
+
+        // POST: SQLServers/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(SQLBackupServer server)
+        {
+            sprocs.DeleteSQLServer(server.SQLBackupID);
+            return RedirectToAction("Index", new { id = server.Server_ServerID });
+        }
     }
 }

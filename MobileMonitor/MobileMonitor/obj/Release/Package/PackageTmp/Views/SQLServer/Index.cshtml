@@ -7,6 +7,7 @@
 <h2>Index</h2>
 
 <p>
+    @Html.ActionLink("Return to Backup", "Index", new { controller = "ServerBackups", serverId = ViewBag.LinkableId })
     @Html.ActionLink("Create New", "Create", new { id = ViewBag.LinkableId })
 </p>
 <table class="table">
@@ -26,7 +27,7 @@
             @Html.DisplayFor(modelItem => item.DatabaseName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Server_ServerID)
+            @ViewBag.Server
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new {  id=item.SQLBackupID  }) |

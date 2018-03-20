@@ -489,6 +489,7 @@ namespace DAL
                             CPUUsage = (string)row["CPUUsage"],
                             MemoryAvailble = (string)row["MemoryAvailble"],
                             NetworkUsage = (string)row["NetworkUsage"],
+                            DateOfStatus = (DateTime)row["DateOfStatus"],
                             Server_ServerID = (int)row["Server_ServerID"],
                             Active = (bool)row["Active"]
                         });
@@ -637,6 +638,114 @@ namespace DAL
                 }
 
                 return backup;
+            }
+        }
+
+        public void DeleteServerBackup(int backupID)
+        {
+            using (SqlConnection con = new SqlConnection(constring))
+            using (SqlCommand cmd = new SqlCommand("DeleteBackup", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter id = new SqlParameter("@BackupID", SqlDbType.Int);
+                id.Value = backupID;
+                cmd.Parameters.Add(id);
+
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    con.Close();
+                }
+            }
+        }
+
+        public void DeleteServer(int serverID)
+        {
+            using (SqlConnection con = new SqlConnection(constring))
+            using (SqlCommand cmd = new SqlCommand("DeleteServer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter id = new SqlParameter("@ServerID", SqlDbType.Int);
+                id.Value = serverID;
+                cmd.Parameters.Add(id);
+
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    con.Close();
+                }
+            }
+        }
+
+        public void DeleteBackupResult(int resultID)
+        {
+            using (SqlConnection con = new SqlConnection(constring))
+            using (SqlCommand cmd = new SqlCommand("DeleteBackupResult", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter id = new SqlParameter("@ResultID", SqlDbType.Int);
+                id.Value = resultID;
+                cmd.Parameters.Add(id);
+
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    con.Close();
+                }
+            }
+        }
+
+        public void DeleteSQLServer(int sqlServerID)
+        {
+            using (SqlConnection con = new SqlConnection(constring))
+            using (SqlCommand cmd = new SqlCommand("DeleteSQLServer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter id = new SqlParameter("@SQLServerID", SqlDbType.Int);
+                id.Value = sqlServerID;
+                cmd.Parameters.Add(id);
+
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    con.Close();
+                }
             }
         }
     }

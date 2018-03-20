@@ -62,7 +62,6 @@ namespace SystemTrayApp
             item = new ToolStripMenuItem();
             item.Text = "Stop Monitor";
             item.Click += new EventHandler(Stop_Monitor_Click);
-            item.Image = Resources.About;
             menu.Items.Add(item);
 
             // Separator.
@@ -72,7 +71,7 @@ namespace SystemTrayApp
             // Exit.
             item = new ToolStripMenuItem();
             item.Text = "Exit";
-            item.Click += new System.EventHandler(Exit_Click);
+            item.Click += new EventHandler(Exit_Click);
             item.Image = Resources.Exit;
             menu.Items.Add(item);
 
