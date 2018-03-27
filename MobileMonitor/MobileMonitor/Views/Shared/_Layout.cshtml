@@ -28,14 +28,15 @@
                     <li>@Html.ActionLink("MyServers", "Index", "Servers")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    @if (Session["UserID"] == null)
+                    @*@if (Session["UserID"] == null)*@
+                    @if (Request.Cookies[".ASPXAUTH"].Value == null)
                     {
                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
                         <li>@Html.ActionLink("Register", "Register", "Account")</li>
                     }
                     else
                     {
-                        <li><label style="color: white; display: block">@Session["UserName"]</label></li>
+                        <li><label style="color: #999; display: block; padding-top: 15px;">Welcome @Session["UserName"]</label></li>
                         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
                     }
                 </ul>

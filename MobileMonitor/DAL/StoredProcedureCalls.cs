@@ -465,6 +465,29 @@ namespace DAL
             }
         }
 
+        public List<string> ReturnAllUsers()
+        {
+            using (SqlConnection con = new SqlConnection(constring))
+            using (SqlCommand cmd = new SqlCommand("ReturnAllUsers", con))
+            {
+                List<string> userList = new List<string>();
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        userList.Add((string)row["Username"]);
+                    }
+                }
+
+                return userList;
+            }
+        }
+
         public List<ServerStatu> ReturnStatus(int id)
         {
             using (SqlConnection con = new SqlConnection(constring))

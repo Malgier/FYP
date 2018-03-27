@@ -57,6 +57,11 @@ namespace MobileMonitor.Controllers
         {
             if (ModelState.IsValid)
             {
+                List<string> usernames = sprocs.ReturnAllUsers();
+                foreach (string name in usernames)
+                    if (name.ToUpper().Equals(user.UserName.ToUpper()))
+                        return View();
+
                 user.Password = encryption.Encrypt(user.Password);
                 sprocs.InsertUser(user);
                 return RedirectToAction("Login");

@@ -16,7 +16,7 @@ namespace DomainModel
         public int CPUWarningPoint { get; set; }
         [DisplayName("Warning Percentage Usage for Network")]
         public int NetworkWarningPoint { get; set; }
-        [DisplayName("Warning Avialable Usage for RAM")]
+        [DisplayName("Warning Available Usage for RAM (MB)")]
         public int RAMWarningPoint { get; set; }
         [DisplayName("Time to warning in seconds")]
         public int TimeWarning { get; set; }
