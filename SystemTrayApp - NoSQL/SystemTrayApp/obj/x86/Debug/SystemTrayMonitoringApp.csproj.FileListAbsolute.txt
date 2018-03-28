@@ -1,0 +1,6 @@
+E:\Downloads\SystemTrayApp\SystemTrayApp\obj\x86\Debug\SystemTrayApp.AboutBox.resources
+E:\Downloads\SystemTrayApp\SystemTrayApp\obj\x86\Debug\SystemTrayApp.Properties.Resources.resources
+E:\Downloads\SystemTrayApp\SystemTrayApp\obj\x86\Debug\SystemTrayMonitoringApp.csproj.GenerateResource.Cache
+E:\Downloads\SystemTrayApp\SystemTrayApp\obj\x86\Debug\SystemTrayMonitoringApp.csproj.CoreCompileInputs.cache
+E:\Downloads\SystemTrayApp\SystemTrayApp\obj\x86\Debug\SystemTrayApp.exe
+E:\Downloads\SystemTrayApp\SystemTrayApp\obj\x86\Debug\SystemTrayApp.pdb

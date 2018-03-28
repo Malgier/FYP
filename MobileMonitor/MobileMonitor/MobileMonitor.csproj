@@ -204,12 +204,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PushController.cs" />
     <Compile Include="Controllers\ServerBackupsController.cs" />
     <Compile Include="Controllers\ServerResultController.cs" />
     <Compile Include="Controllers\ServersController.cs" />
     <Compile Include="Controllers\ServerStatusController.cs" />
+    <Compile Include="Controllers\ServerWarningController.cs" />
     <Compile Include="Controllers\SQLServerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -284,6 +284,7 @@
     <Content Include="Views\ServerResult\Delete.cshtml" />
     <Content Include="Views\SQLServer\Delete.cshtml" />
     <Content Include="Views\ServerStatus\StatusHistory.cshtml" />
+    <Content Include="Views\ServerWarning\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -155,11 +155,13 @@ namespace SystemTrayApp
             DateTime endTime = new DateTime();
             int warningID = 0;
             int stop = 0;
-            int ticksForOneMinute = (int)(server.TimeWarning / 5);
             Client client = new Client();
 
             while (stop != 1)
             {
+                server = sproc.ReturnServer(serverName);
+                int ticksForOneMinute = (int)(server.TimeWarning / 5);
+
                 float cpuPercent = GetCPUCounter();
                 float networkUsage = GetBandWidth();
                 float ramAvailable = GetAvailableRAM();
@@ -172,8 +174,8 @@ namespace SystemTrayApp
                     {
                         warning = "ALERT! CPU over " + server.CPUWarningPoint + "% usage for " + server.TimeWarning + " seconds";
                         startTime = DateTime.Now;
-                        warningID = sproc.InsertServerWarning(warning, startTime, new DateTime(), serverID);
-                        client.GetClient("http://localhost:2021/", "api/Notification");
+                        warningID = sproc.InsertServerWarning(warning, startTime, startTime, serverID);
+                        client.GetClient("http://localhost:2021/", "api/Push?serverID=" + server.ServerID + "&hardware=CPU");
                     }
                 }
                 //Check for the end of the warning
@@ -198,8 +200,8 @@ namespace SystemTrayApp
                     {
                         warning = "ALERT! RAM under " + server.RAMWarningPoint + "MB Avaialble for " + server.TimeWarning + " seconds";
                         startTime = DateTime.Now;
-                        warningID = sproc.InsertServerWarning(warning, startTime, new DateTime(), serverID);
-                        client.GetClient("http://localhost:2021/", "api/Notification");
+                        warningID = sproc.InsertServerWarning(warning, startTime, startTime, serverID);
+                        client.GetClient("http://localhost:2021/", "api/Push?serverID=" + server.ServerID + "&hardware=RAM");
                     }
                 }
                 //Check for the end of the warning
@@ -224,8 +226,8 @@ namespace SystemTrayApp
                     {
                         warning = "ALERT! Network over " + server.NetworkWarningPoint + "% usage for " + server.TimeWarning + " seconds";
                         startTime = DateTime.Now;
-                        warningID = sproc.InsertServerWarning(warning, startTime, new DateTime(), serverID);
-                        client.GetClient("http://localhost:2021/", "api/Notification");
+                        warningID = sproc.InsertServerWarning(warning, startTime, startTime, serverID);
+                        client.GetClient("http://localhost:2021/", "api/Push?serverID=" + server.ServerID + "&hardware=Net");
                     }
                 }
                 //Check for the end of the warning

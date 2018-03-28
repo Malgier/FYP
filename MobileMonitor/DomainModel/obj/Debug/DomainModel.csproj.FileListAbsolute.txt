@@ -4,3 +4,9 @@ E:\Work\FYP\MobileMonitor\DomainModel\obj\Debug\DomainModel.csproj.CoreCompileIn
 E:\Work\FYP\MobileMonitor\DomainModel\obj\Debug\DomainModel.dll
 E:\Work\FYP\MobileMonitor\DomainModel\obj\Debug\DomainModel.pdb
 E:\Work\FYP\MobileMonitor\DomainModel\obj\Debug\DomainModel.csprojResolveAssemblyReference.cache
+C:\Users\Will\Documents\GitHub\FYP\MobileMonitor\DomainModel\bin\Debug\DomainModel.dll
+C:\Users\Will\Documents\GitHub\FYP\MobileMonitor\DomainModel\bin\Debug\DomainModel.pdb
+C:\Users\Will\Documents\GitHub\FYP\MobileMonitor\DomainModel\obj\Debug\DomainModel.csprojResolveAssemblyReference.cache
+C:\Users\Will\Documents\GitHub\FYP\MobileMonitor\DomainModel\obj\Debug\DomainModel.csproj.CoreCompileInputs.cache
+C:\Users\Will\Documents\GitHub\FYP\MobileMonitor\DomainModel\obj\Debug\DomainModel.dll
+C:\Users\Will\Documents\GitHub\FYP\MobileMonitor\DomainModel\obj\Debug\DomainModel.pdb

@@ -34,8 +34,9 @@
             @Html.ActionLink("Delete", "Delete", new { id = item.ServerID })
         </td>
         <td>
-            @Html.ActionLink("Status", "Index", new { controller = "ServerStatus", id = item.ServerID }) | 
-            @Html.ActionLink("Backups", "Index", new { controller = "ServerBackups", serverId = item.ServerID }) 
+            @Html.ActionLink("Status", "Index", new { controller = "ServerStatus", id = item.ServerID }) |
+            @Html.ActionLink("Backups", "Index", new { controller = "ServerBackups", serverId = item.ServerID }) |
+            @Html.ActionLink("Warnings", "Index", new { controller = "ServerWarning", serverId = item.ServerID })
         </td>
     </tr>
 }

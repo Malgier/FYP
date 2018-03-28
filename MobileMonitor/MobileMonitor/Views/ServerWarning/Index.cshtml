@@ -1,0 +1,42 @@
+﻿@model IEnumerable<DomainModel.ServerWarning>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WarningCause)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeWarningStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeWarningEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Server_ServerID)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WarningCause)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeWarningStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeWarningEnd)
+        </td>
+        <td>
+            @ViewBag.Server
+        </td>
+    </tr>
+}
+
+</table>

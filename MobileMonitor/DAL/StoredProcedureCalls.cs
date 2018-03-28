@@ -80,6 +80,31 @@ namespace DAL
             }
         }
 
+        public List<int> ReturnUsersByServer(int serverID)
+        {
+            List<int> serverIDList = new List<int>();
+            using (SqlConnection con = new SqlConnection(constring))
+            using (SqlCommand cmd = new SqlCommand("ReturnUsersByServer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter id = new SqlParameter("@ServerID", SqlDbType.Int);
+                id.Value = serverID;
+                cmd.Parameters.Add(id);
+
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        serverIDList.Add((int)row["User_UserID"]);
+                    }
+                }
+                return serverIDList;
+            }
+        }
+
         public List<SQLBackupServer> ReturnSQLServers(int id)
         {
             using (SqlConnection con = new SqlConnection(constring))
@@ -434,15 +459,18 @@ namespace DAL
             }
         }
 
-        public User ReturnUser(string userName)
+        public User ReturnUser(string userName = "", int userId = 0)
         {
             using (SqlConnection con = new SqlConnection(constring))
             using (SqlCommand cmd = new SqlCommand("ReturnUser", con))
             {
                 User user = new User();
                 cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter id = new SqlParameter("@UserID", SqlDbType.Int);
                 SqlParameter name = new SqlParameter("@UserName", SqlDbType.VarChar, 25);
+                id.Value = userId;
                 name.Value = userName;
+                cmd.Parameters.Add(id);
                 cmd.Parameters.Add(name);
 
                 using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -591,6 +619,40 @@ namespace DAL
                 return warning;
             }
         }
+
+        public List<ServerWarning> ReturnWarnings(int serverId)
+        {
+            using (SqlConnection con = new SqlConnection(constring))
+            using (SqlCommand cmd = new SqlCommand("ReturnServerWarnings", con))
+            {
+                List<ServerWarning> warning = new List<ServerWarning>();
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter id = new SqlParameter("@ServerID", SqlDbType.Int);
+                id.Value = serverId;
+                cmd.Parameters.Add(id);
+
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        warning.Add(new ServerWarning()
+                        {
+                            WarningID = (int)row["WarningID"],
+                            WarningCause = (string)row["WarningCause"],
+                            TimeWarningStart = (DateTime)row["TimeWarningStart"],
+                            TimeWarningEnd = (DateTime)row["TimeWarningEnd"],
+                            Server_ServerID = (int)row["Server_ServerID"]
+                        });
+                    }
+                }
+
+                return warning;
+            }
+        }
+
 
         public SQLBackupServer ReturnSQLServer(int sqlId)
         {
